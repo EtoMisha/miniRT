@@ -1,6 +1,9 @@
-SRCS =  main.c			create_camera_light.c 		vectors.c \
-		parser.c 		create_sphere_plane.c 		vectors2.c \
-		draw.c			create_cylinder.c			intersection.c
+SRCS =  main.c				create_camera_light.c	\
+		parser.c 			create_objects.c		\
+		draw.c				vectors.c				\
+		intersection.c		vectors2.c				\
+		lighting.c			exit.c					\
+		color.c
 
 CC = gcc
 
@@ -8,7 +11,7 @@ FLAGS = -Wall -Wextra -Werror
 
 ADD_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-INCLUDES = minirt.h libft/libft.h mlx/mlx.h objects.h vectors.h
+INCLUDES = minirt.h libft/libft.h mlx/mlx.h vectors.h
 
 OBJS = $(SRCS:.c=.o)
 
@@ -27,8 +30,8 @@ $(LIBFT_LIB): libft ;
 
 $(MLX_LIB): libmlx ;
 
-%.o:%.c ${INCLUDES} Makefile
-		gcc ${FLAGS} -o $@ -c $<
+%.o:%.c $(INCLUDES) Makefile
+		gcc $(FLAGS) -o $@ -c $<
 
 libft:
 	make -C $(LIBFT_DIR)
