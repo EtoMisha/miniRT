@@ -6,16 +6,11 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:42:44 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/06 20:33:29 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:53:12 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	create_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}
 
 void	create_ambient(char **arr, t_data *data)
 {

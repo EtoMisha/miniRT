@@ -6,15 +6,17 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/06 20:44:37 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/08 22:21:39 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1600
-# define WIN_HEIGHT 1200
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
+# define LIGHT_COEF 0.02
+# define BG_COLOR 0x75BBFD
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -23,7 +25,6 @@
 # include "libft/libft.h"
 # include "mlx/mlx.h"
 # include "vectors.h"
-# include "objects.h"
 
 typedef struct s_img
 {
@@ -34,6 +35,37 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_ambient
+{
+	float	ratio;
+	int		color;
+}	t_ambient;
+
+typedef struct s_camera
+{
+	t_vector	point;
+	t_vector	norm;
+	int			fov;
+}	t_camera;
+
+typedef struct s_light
+{
+	t_vector		point;
+	float			brightness;
+	int				color;
+	struct s_light	*next;
+}	t_light;
+
+typedef struct s_object
+{
+	int			type;
+	t_vector	point;
+	t_vector	norm;
+	float		diameter;
+	float		height;
+	int			color;
+}	t_object;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -42,31 +74,34 @@ typedef struct s_data
 	t_ambient	*ambient;
 	t_camera	*camera;
 	t_light		*light;
-	t_sphere	*sphere;
-	t_plane		*plane;
-	t_cylinder	*cylinder;
+	t_object	**objects;
+	int			qty;
 }	t_data;
 
-typedef struct s_pixel
-{
-	float	x;
-	float	y;
-	int		color;
-}	t_pixel;
+void		parser(char *file_name, t_data *data);
+int			count_arr(char **arr);
 
-void	parser(char *file_name, t_data *data);
-int		count_arr(char **arr);
-int		create_rgb(int r, int g, int b);
+void		create_ambient(char **arr, t_data *data);
+void		create_camera(char **arr, t_data *data);
+void		create_light(char **arr, t_data *data);
+t_object	*create_sphere(char **arr);
+t_object	*create_plane(char **arr);
+t_object	*create_cylinder(char **arr);
 
-void	create_ambient(char **arr, t_data *data);
-void	create_camera(char **arr, t_data *data);
-void	create_light(char **arr, t_data *data);
-void	create_sphere(char **arr, t_data *data);
-void	create_plane(char **arr, t_data *data);
-void	create_cylinder(char **arr, t_data *data);
+void		draw_loop(t_data *data);
+int			lighting(t_object *object, t_vector dir, t_data *data, float dist);
 
-void	draw_start(t_data *data);
+float		inter_sphere(t_vector camera, t_vector dir, t_object *sphere);
+float		inter_plane(t_vector camera, t_vector dir, t_object *plane);
+float		inter_cylinder(t_vector camera, t_vector dir, t_object *cyl);
 
-void	exit_error(char *function);
+int			create_rgb(int r, int g, int b);
+int			rgb(int color, char level);
+int			add_color(int color, float coef);
+int			sum_color(int color1, int color2);
+
+void		exit_error(char *function);
+int			exit_hook(int key_code, t_data *data);
+int			exit_hook_esc(int key_code, t_data *data);
 
 #endif

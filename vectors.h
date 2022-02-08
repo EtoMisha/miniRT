@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:53:39 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/06 20:01:04 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/07 15:19:14 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_vector
 	float	z;
 }	t_vector;
 
+t_vector	vector(float x, float y, float z);
 t_vector	v_sum(t_vector a, t_vector b);
 t_vector	v_sub(t_vector a, t_vector b);
 t_vector	v_mul(t_vector a, t_vector b);
