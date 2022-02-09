@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 22:21:39 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:01:54 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int			lighting(t_object *object, t_vector dir, t_data *data, float dist);
 float		inter_sphere(t_vector camera, t_vector dir, t_object *sphere);
 float		inter_plane(t_vector camera, t_vector dir, t_object *plane);
 float		inter_cylinder(t_vector camera, t_vector dir, t_object *cyl);
+t_vector	cylinder_norm(t_object *cyl, t_vector dir, t_vector inter, t_data *data);
 
 int			create_rgb(int r, int g, int b);
 int			rgb(int color, char level);

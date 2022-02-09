@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 20:40:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 22:40:47 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:01:36 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,68 +56,44 @@ float	inter_plane(t_vector camera, t_vector dir, t_object *plane)
 	float	dist;
 
 	dist = v_dist(camera, plane->point);
-	t = -(v_scal(camera, plane->norm) + dist) / v_scal(dir, plane->norm);
+	t = -(v_scal(v_sub(camera, plane->point), plane->norm)) / v_scal(dir, plane->norm);
 	return (t);
 }
 
-float	inter_cylinder(t_vector camera, t_vector dir, t_object *cyl)
+t_vector	cylinder_norm(t_object *cyl, t_vector dir, t_vector inter, t_data *data)
 {
-	t_vector	oc;
-	t_vector	ca;
-	t_vector	pa;
-	t_vector	pb;
-	float		radius;
-	float		caca;
-	float		card;
-	float		caoc;
-	float		a;
-	float		b;
-	float		c;
-	float		h;
-	float		t;
-	float		y;
-
-	radius = cyl->diameter / 2;
-	pa = cyl->point;
-	pb = v_sum(cyl->point, v_muls(cyl->norm, cyl->height));
+	t_vector d = dir;
+	t_vector v = cyl->norm;
+	float	t = v_len(v_sub(inter, data->camera->point));
+	t_vector c = cyl->point;
+	t_vector p = inter;
 	
-	ca = v_sub(pb, pa);
-	oc = v_sub(camera, pa);
-	caca = v_scal(ca, ca);
-	card = v_scal(cyl->norm, dir);
-	caoc = v_scal(cyl->norm, oc);
-	
-	a = caca - card * card;
-	b = caca * v_scal(oc, dir) - caoc * card;
-	c = caca * v_scal(oc, oc) - caoc * caoc - radius * radius * caca;
-	h = b * b - a * c;
-	if (h < 0)
-		return (0);
-	h = sqrtf(h);
-	t = (-b - h) / a;
-	y = caoc + t * card;
-	if (y > 0 && y < caca)
-		return (t);
-	if (y < 0)
-		return ((0 - caoc) / card);
-	else
-		return ((caca - caoc) / card);
-	if (fabsf(b + a * t) < h)
-		return (t);
-	return (0);
-
+	float m = v_scal(d, v) * t + v_scal(v_sub(data->camera->point, c), v);
+	return (v_norm(v_sub(v_sub(p, c), v_muls(v, m))));
 }
 
-// vec2 cylIntersect( in vec3 ro, in vec3 rd, in vec3 cb, in vec3 ca, float cr )
-// {
-//     vec3  oc = ro - cb;
-//     float card = dot(ca,rd);
-//     float caoc = dot(ca,oc);
-//     float a = 1.0 - card*card;
-//     float b = dot( oc, rd) - caoc*card;
-//     float c = dot( oc, oc) - caoc*caoc - cr*cr;
-//     float h = b*b - a*c;
-//     if( h<0.0 ) return vec2(-1.0); //no intersection
-//     h = sqrt(h);
-//     return vec2(-b-h,-b+h)/a;
-// }
+float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)
+{
+	float	ra = cyl->diameter / 2;
+	t_vector pa = cyl->point;
+	t_vector pb = v_sum(cyl->point, v_muls(cyl->norm, cyl->height)); 
+	t_vector ca = v_sub(pb,pa);
+    t_vector oc = v_sub(ro,pa);
+    float caca = v_scal(ca,ca);
+    float card = v_scal(ca,rd);
+    float caoc = v_scal(ca,oc);
+    float a = caca - card*card;
+    float b = caca*v_scal( oc, rd) - caoc*card;
+    float c = caca*v_scal( oc, oc) - caoc*caoc - ra*ra*caca;
+    float h = b*b - a*c;
+    if( h<0.0 ) return (0); //no intersection
+    h = sqrt(h);
+    float t = (-b-h)/a;
+    // body
+    float y = caoc + t*card;
+    if( y>0.0 && y<caca ) return ( t);
+    // caps
+    t = (((y<0.0)?0.0:caca) - caoc)/card;
+    if( fabs(b+a*t)<h ) return ( t);
+    return (0); //no intersection
+}

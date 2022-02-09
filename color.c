@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 22:09:52 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 22:20:23 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:40:35 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ int	add_color(int color, float coef)
 	int	g;
 	int	b;
 
-	r = rgb(color, 'R') * coef;
+	r = rgb(color, 'R') + coef;
 	if (r > 255)
 		r = 255;
 	if (r < 0)
 		r = 0;
-	g = rgb(color, 'G') * coef;
+	g = rgb(color, 'G') + coef;
 	if (g > 255)
 		g = 255;
 	if (g < 0)
 		g = 0;
-	b = rgb(color, 'B') * coef;
+	b = rgb(color, 'B') + coef;
 	if (b > 255)
 		b = 255;
 	if (b < 0)
