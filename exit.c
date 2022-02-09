@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:35:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 18:37:43 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:13:36 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_error(char *message)
 {
-	printf("%s\n", message);
+	printf("Error\n%s\n", message);
 	exit(1);
 }
 
