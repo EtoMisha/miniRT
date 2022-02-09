@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 18:53:25 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:40:28 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ static void	create_objects(char **arr, t_data *data)
 		create_light(arr, data);
 	else if (!ft_strcmp(arr[0], "sp"))
 	{
-		data->objects[count] = create_sphere(arr);
+		data->objects[count] = create_sphere(arr, count);
 		count++;
 	}	
 	else if (!ft_strcmp(arr[0], "pl"))
 	{
-		data->objects[count] = create_plane(arr);
+		data->objects[count] = create_plane(arr, count);
 		count++;
 	}
 	else if (!ft_strcmp(arr[0], "cy"))
 	{
-		data->objects[count] = create_cylinder(arr);
+		data->objects[count] = create_cylinder(arr, count);
 		count++;
 	}
 	else
@@ -81,14 +81,14 @@ int	count_objects(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		exit_error("Error while opening file");
+		exit_error("Can't open file");
 	check_read = 1;
 	count = 0;
 	while (check_read > 0)
 	{
 		check_read = get_next_line(fd, &line);
 		if (check_read == -1)
-			exit_error("Error while reading file");
+			exit_error("Can't read file");
 		if (line[0] == 'p' || line[0] == 's' || line[0] == 'c')
 			count++;
 	}

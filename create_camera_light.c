@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:42:44 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 14:03:10 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:20:52 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	create_ambient(char **arr, t_data *data)
 {
+	static int	count = 0;
+
+	if (count > 0)
+		exit_error("Currupted file");
 	if (count_arr(arr) != 5)
 		exit_error("Currupted file");
 	data->ambient = malloc(sizeof(t_ambient));
@@ -22,10 +26,15 @@ void	create_ambient(char **arr, t_data *data)
 	data->ambient->ratio = ft_atof(arr[1]);
 	data->ambient->color = create_rgb(ft_atoi(arr[2]), \
 		ft_atoi(arr[3]), ft_atoi(arr[4]));
+	count++;
 }
 
 void	create_camera(char **arr, t_data *data)
 {
+	static int	count = 0;
+
+	if (count > 0)
+		exit_error("Currupted file");
 	if (count_arr(arr) != 8)
 		exit_error("Currupted file");
 	data->camera = malloc(sizeof(t_camera));
@@ -38,6 +47,7 @@ void	create_camera(char **arr, t_data *data)
 	data->camera->norm.y = ft_atof(arr[5]);
 	data->camera->norm.z = ft_atof(arr[6]);
 	data->camera->fov = ft_atoi(arr[7]);
+	count++;
 }
 
 static t_light	*add_light(char **arr)

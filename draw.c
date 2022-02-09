@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/08 22:28:44 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:14:26 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	draw_pixel(t_img *img, int x, int y, int color)
 	}
 }
 
-float	find_dist(t_object *object, t_vector direction, t_data *data)
+float	find_dist(t_object *object, t_vector start, t_vector direction)
 {
 	float	distance;
 
 	distance = 0;
 	if (object->type == 0)
-		distance = inter_sphere(data->camera->point, direction, object);
+		distance = inter_sphere(start, direction, object);
 	else if (object->type == 1)
-		distance = inter_plane(data->camera->point, direction, object);
+		distance = inter_plane(start, direction, object);
 	else if (object->type == 2)
-		distance = inter_cylinder(data->camera->point, direction, object);
+		distance = inter_cylinder(start, direction, object);
 	return (distance);
 }
 
@@ -49,7 +49,7 @@ int	intersection(t_object **objects, t_vector direction, t_data *data)
 	i = 0;
 	while (i < data->qty)
 	{
-		distance = find_dist(objects[i], direction, data);
+		distance = find_dist(objects[i], data->camera->point, direction);
 		if (distance > 0 && distance < min_dist)
 		{
 			min_dist = distance;

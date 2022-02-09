@@ -6,16 +6,15 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 18:01:54 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:49:52 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define LIGHT_COEF 0.02
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 800
 # define BG_COLOR 0x75BBFD
 
 # include <unistd.h>
@@ -58,6 +57,7 @@ typedef struct s_light
 
 typedef struct s_object
 {
+	int			id;
 	int			type;
 	t_vector	point;
 	t_vector	norm;
@@ -84,12 +84,13 @@ int			count_arr(char **arr);
 void		create_ambient(char **arr, t_data *data);
 void		create_camera(char **arr, t_data *data);
 void		create_light(char **arr, t_data *data);
-t_object	*create_sphere(char **arr);
-t_object	*create_plane(char **arr);
-t_object	*create_cylinder(char **arr);
+t_object	*create_sphere(char **arr, int count);
+t_object	*create_plane(char **arr, int count);
+t_object	*create_cylinder(char **arr, int count);
 
 void		draw_loop(t_data *data);
 int			lighting(t_object *object, t_vector dir, t_data *data, float dist);
+float		find_dist(t_object *object, t_vector start, t_vector direction);
 
 float		inter_sphere(t_vector camera, t_vector dir, t_object *sphere);
 float		inter_plane(t_vector camera, t_vector dir, t_object *plane);

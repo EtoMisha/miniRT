@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 18:02:16 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 20:07:10 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	specular_light(t_vector norm, t_vector dir, t_vector inter_point, t_data *
 	t_vector	view;
 	t_vector	spot;
 
-	coef_ref = 0.035;
+	coef_ref = 0.05;
 	bright = data->light->brightness;
 	spot = v_sub(data->light->point, inter_point);
 	view = v_sub(data->camera->point, inter_point);
@@ -36,12 +36,30 @@ float	diff_light(t_vector norm, t_vector inter_point, t_data *data)
 	return (v_scal(norm, spot) * data->light->brightness);
 }
 
+float	drop_shadow(t_vector inter, t_data *data, t_object *obj)
+{
+	int			i;
+	t_vector	dir;
+
+	dir = v_norm(v_sub(data->light->point, inter));
+	i = 0;
+	while (i < data->qty)
+	{
+		if (find_dist(data->objects[i], inter, dir) > 0 && obj->id != i)
+			return (-50);
+		i++;
+	}
+	return (0);
+}
+
 int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 {
 	t_vector	inter_point;
 	t_vector	norm;
 	float		diff;
 	float		specular;
+	float		drop;
+	int			color;
 
 	inter_point = v_sum(data->camera->point, v_muls(dir, dist));
 	if (object->type == 0)
@@ -51,6 +69,9 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 	if (object->type == 2)
 		norm = cylinder_norm(object, dir, inter_point, data); // нормаль для цилиндра (похоже неправильно считается)
 	diff = diff_light(norm, inter_point, data);
-	specular = specular_light(norm, dir, inter_point, data);
-	return (add_color(object->color, data->ambient->ratio + diff + specular));
+	specular = specular_light(norm, dir, inter_point, data); //недостаточный блик почему-то
+	drop = drop_shadow(inter_point, data, object);
+	color = add_color(object->color, data->ambient->ratio + diff + specular);
+	color = add_color(color, drop);
+	return (color);
 }

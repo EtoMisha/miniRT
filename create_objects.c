@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 00:00:21 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 14:02:56 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/09 19:41:34 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_arr(char **arr)
 	return (i);
 }
 
-t_object	*create_sphere(char **arr)
+t_object	*create_sphere(char **arr, int count)
 {
 	t_object	*new;
 
@@ -32,6 +32,7 @@ t_object	*create_sphere(char **arr)
 	new = malloc(sizeof(t_object));
 	if (!new)
 		exit_error("Malloc error");
+	new->id = count;
 	new->type = 0;
 	new->point.x = ft_atof(arr[1]);
 	new->point.y = ft_atof(arr[2]);
@@ -42,7 +43,7 @@ t_object	*create_sphere(char **arr)
 	return (new);
 }
 
-t_object	*create_plane(char **arr)
+t_object	*create_plane(char **arr, int count)
 {
 	t_object	*new;
 
@@ -51,6 +52,7 @@ t_object	*create_plane(char **arr)
 	new = malloc(sizeof(t_object));
 	if (!new)
 		exit_error("Malloc error");
+	new->id = count;
 	new->type = 1;
 	new->point.x = ft_atof(arr[1]);
 	new->point.y = ft_atof(arr[2]);
@@ -63,7 +65,7 @@ t_object	*create_plane(char **arr)
 	return (new);
 }
 
-t_object	*create_cylinder(char **arr)
+t_object	*create_cylinder(char **arr, int count)
 {
 	t_object	*new;
 
@@ -72,6 +74,7 @@ t_object	*create_cylinder(char **arr)
 	new = malloc(sizeof(t_object));
 	if (!new)
 		exit_error("Malloc error");
+	new->id = count;
 	new->type = 2;
 	new->point.x = ft_atof(arr[1]);
 	new->point.y = ft_atof(arr[2]);
