@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 20:07:10 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:18:47 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 	diff = diff_light(norm, inter_point, data);
 	specular = specular_light(norm, dir, inter_point, data); //недостаточный блик почему-то
 	drop = drop_shadow(inter_point, data, object);
-	color = add_color(object->color, data->ambient->ratio + diff + specular);
-	color = add_color(color, drop);
+	if (drop == 0)
+		color = add_color(object->color, data->ambient->ratio + diff + specular);
+	else
+		color = add_color(object->color, diff + drop);
 	return (color);
 }
