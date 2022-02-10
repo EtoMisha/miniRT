@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 17:09:47 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 18:56:30 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,22 @@ void	change_camera(int key_code, t_data *data)
 		data->camera->fov += 10;
 	else if (key_code == 257)
 		data->camera->fov -= 10;
-	if (key_code == 0)
-		data->camera->norm.y -= 0.1;
+	else if (key_code == 0)
+		data->camera->norm.y -= 0.2;
 	else if (key_code == 2)
-		data->camera->norm.y += 0.1;
-	if (key_code == 13)
-		data->camera->norm.z += 0.1;
+		data->camera->norm.y += 0.2;
+	else if (key_code == 13)
+		data->camera->norm.z += 0.2;
 	else if (key_code == 1)
-		data->camera->norm.z -= 0.1;
-	
+		data->camera->norm.z -= 0.2;
+	else if (key_code == 126)
+		data->camera->point = v_sum(data->camera->point, v_muls(data->camera->norm, 50));
+	else if (key_code == 125)
+		data->camera->point = v_sub(data->camera->point, v_muls(data->camera->norm, 50));
+	else if (key_code == 123)
+		data->camera->point = v_sub(data->camera->point, v_muls(v_mulv(data->camera->norm, vector(0,0,-1)),50));
+	else if (key_code == 124)
+		data->camera->point = v_sub(data->camera->point, v_muls(v_mulv(data->camera->norm, vector(0,0,1)),50));
 	remake_image(data);
 }
 

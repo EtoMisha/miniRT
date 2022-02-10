@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 16:46:55 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 19:44:54 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
 # define BG_COLOR 0x75BBFD
+# define SHADOW_COEF 50
+# define REFLECTION_COEF 0.2
 
 # include <unistd.h>
 # include <fcntl.h>
