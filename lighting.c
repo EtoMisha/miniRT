@@ -6,13 +6,14 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 20:54:17 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:39:34 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	specular_light(t_vector norm, t_vector dir, t_vector inter_point, t_data *data)
+float	specular_light(t_vector norm, t_vector dir, \
+	t_vector inter_point, t_data *data)
 {
 	float		bright;
 	t_vector	reflect;
@@ -41,7 +42,8 @@ float	drop_shadow(t_vector inter, t_data *data, t_object *obj)
 	i = 0;
 	while (i < data->qty)
 	{
-		if (find_dist(data->objects[i], inter, dir) > 0 && obj->id != i)
+		if (find_dist(data->objects[i], inter, dir) > 0 && obj->id != i && \
+			data->objects[i]->type != 1) // костыль чтоб плоскость не отбрасывала тень
 		{
 			return (-1);
 		}
@@ -54,8 +56,6 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 {
 	t_vector	inter_point;
 	t_vector	norm;
-	float		diff;
-	float		specular;
 	float		drop;
 	int			color;
 
@@ -65,13 +65,14 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 	if (object->type == 1)
 		norm = v_norm(object->norm);
 	if (object->type == 2)
-		norm = cylinder_norm(object, dir, inter_point, data); // нормаль для цилиндра неправильно считается
-	diff = diff_light(norm, inter_point, data);
-	specular = specular_light(norm, dir, inter_point, data);
+		norm = cylinder_norm(object, inter_point); // нормаль для цилиндра неправильно считается
 	drop = drop_shadow(inter_point, data, object);
 	if (drop == 0)
-		color = add_color(object->color, data->ambient->ratio * 10 + diff * 200 + specular * 70);
+		color = add_color(object->color, data->ambient->ratio * AMB_COEF \
+			+ diff_light(norm, inter_point, data) * DIFF_COEF \
+			+ specular_light(norm, dir, inter_point, data) * SPEC_COEF);
 	else
-		color = add_color(object->color, data->ambient->ratio * 10 + drop * data->light->brightness);
+		color = add_color(object->color, data->ambient->ratio * AMB_COEF \
+			+ drop * data->light->brightness);
 	return (color);
 }

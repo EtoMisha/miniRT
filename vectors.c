@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:25:51 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 15:48:34 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:13:47 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ t_vector	v_muls(t_vector a, float s)
 	result.z = a.z * s;
 	return (result);
 }
-

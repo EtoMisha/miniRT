@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 19:00:39 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:08:46 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	draw_loop(t_data *data)
 			// dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));
 			// direction = v_norm(v_sum(v_norm(vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2))), data->camera->norm));
 			dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));
-			direction = v_norm(v_norm(vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2))));
+			direction = v_norm(v_norm(\
+				vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2))));
 			color = intersection(data->objects, direction, data);
 			draw_pixel(data->img, x, y, color);
 			x++;

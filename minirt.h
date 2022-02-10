@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 19:44:54 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:39:28 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
 # define BG_COLOR 0x75BBFD
-# define SHADOW_COEF 50
-# define REFLECTION_COEF 0.2
+# define AMB_COEF 10
+# define DIFF_COEF 200
+# define SPEC_COEF 70
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -97,15 +98,17 @@ float		find_dist(t_object *object, t_vector start, t_vector direction);
 float		inter_sphere(t_vector camera, t_vector dir, t_object *sphere);
 float		inter_plane(t_vector camera, t_vector dir, t_object *plane);
 float		inter_cylinder(t_vector camera, t_vector dir, t_object *cyl);
-t_vector	cylinder_norm(t_object *cyl, t_vector dir, t_vector inter, t_data *data);
+t_vector	cylinder_norm(t_object *cyl, t_vector inter);
 
 int			create_rgb(int r, int g, int b);
 int			rgb(int color, char level);
 int			add_color(int color, float coef);
 int			sum_color(int color1, int color2);
 
+int			key_hook(int key_code, t_data *data);
+
 void		exit_error(char *function);
 int			exit_hook(int key_code, t_data *data);
-int			exit_hook_esc(int key_code, t_data *data);
+// int			exit_hook_esc(int key_code, t_data *data);
 
 #endif

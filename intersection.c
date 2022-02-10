@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 20:40:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 18:01:36 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:39:20 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,30 @@ float	inter_plane(t_vector camera, t_vector dir, t_object *plane)
 	float	dist;
 
 	dist = v_dist(camera, plane->point);
-	t = -(v_scal(v_sub(camera, plane->point), plane->norm)) / v_scal(dir, plane->norm);
+	t = -(v_scal(v_sub(camera, plane->point), plane->norm)) \
+		/ v_scal(dir, plane->norm);
 	return (t);
 }
 
-t_vector	cylinder_norm(t_object *cyl, t_vector dir, t_vector inter, t_data *data)
+t_vector	cylinder_norm(t_object *cyl, t_vector inter)
 {
-	t_vector d = dir;
-	t_vector v = cyl->norm;
-	float	t = v_len(v_sub(inter, data->camera->point));
-	t_vector c = cyl->point;
-	t_vector p = inter;
-	
-	float m = v_scal(d, v) * t + v_scal(v_sub(data->camera->point, c), v);
-	return (v_norm(v_sub(v_sub(p, c), v_muls(v, m))));
+	t_vector	norm;
+	t_vector	top_center;
+	float		t;
+	t_vector	pt;
+
+	top_center = v_sum(cyl->point, v_muls(cyl->norm, cyl->height));
+	if (v_len(v_sub(inter, cyl->point)) < cyl->diameter / 2)
+		norm = v_muls(cyl->norm, -1);
+	else if (v_len(v_sub(inter, top_center)) < cyl->diameter / 2)
+		norm = cyl->norm;
+	else
+	{
+		t = v_scal(v_sub(inter, cyl->point), cyl->norm);
+		pt = v_sum(cyl->point, v_muls(cyl->norm, t));
+		norm = v_norm(v_sub(inter, pt)); 
+	}
+	return (norm);
 }
 
 float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)

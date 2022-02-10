@@ -3,7 +3,7 @@ SRCS =  main.c				create_camera_light.c	\
 		draw.c				vectors.c				\
 		intersection.c		vectors2.c				\
 		lighting.c			exit.c					\
-		color.c
+		color.c				key_hooks.c
 
 CC = gcc
 

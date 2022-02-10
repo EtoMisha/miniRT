@@ -6,12 +6,11 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 00:00:21 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 19:41:34 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:06:42 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 
 int	count_arr(char **arr)
 {
