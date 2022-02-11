@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 21:15:55 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 19:35:53 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	default_values(t_data *data, t_img *img)
 	data->light = NULL;
 	data->objects = NULL;
 	data->qty = 0;
+	data->angle_y = 0;
+	data->angle_z = 0;
 }
 
 int	main(int argc, char **argv)

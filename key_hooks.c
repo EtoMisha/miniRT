@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:14:38 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 21:15:08 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 19:35:24 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,38 @@ void	remake_image(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->ptr, 0, 0);
 }
 
+void	move_camera(int key_code, t_data *data)
+{
+	if (key_code == 126)
+		data->camera->point = v_sum(data->camera->point, \
+			v_muls(data->camera->norm, MOVE_STEP));
+	else if (key_code == 125)
+		data->camera->point = v_sub(data->camera->point, \
+			v_muls(data->camera->norm, MOVE_STEP));
+	else if (key_code == 123)
+		data->camera->point = v_sub(data->camera->point, \
+			v_muls(v_mulv(data->camera->norm, vector(0, 0, -1)), MOVE_STEP));
+	else if (key_code == 124)
+		data->camera->point = v_sub(data->camera->point, \
+			v_muls(v_mulv(data->camera->norm, vector(0, 0, 1)), MOVE_STEP));
+}
+
 void	change_camera(int key_code, t_data *data)
 {
 	if (key_code == 256)
-		data->camera->fov += 10;
+		data->camera->fov += FOV_STEP;
 	else if (key_code == 257)
-		data->camera->fov -= 10;
-	else if (key_code == 0)
-		data->camera->norm.y -= 0.2;
-	else if (key_code == 2)
-		data->camera->norm.y += 0.2;
+		data->camera->fov -= FOV_STEP;
 	else if (key_code == 13)
-		data->camera->norm.z += 0.2;
+		data->angle_y += ROTATE_STEP;
 	else if (key_code == 1)
-		data->camera->norm.z -= 0.2;
-	else if (key_code == 126)
-		data->camera->point = v_sum(data->camera->point, \
-			v_muls(data->camera->norm, 50));
-	else if (key_code == 125)
-		data->camera->point = v_sub(data->camera->point, \
-			v_muls(data->camera->norm, 50));
-	else if (key_code == 123)
-		data->camera->point = v_sub(data->camera->point, \
-			v_muls(v_mulv(data->camera->norm, vector(0, 0, -1)), 50));
-	else if (key_code == 124)
-		data->camera->point = v_sub(data->camera->point, \
-			v_muls(v_mulv(data->camera->norm, vector(0, 0, 1)), 50));
+		data->angle_y -= ROTATE_STEP;
+	else if (key_code == 0)
+		data->angle_z += ROTATE_STEP;
+	else if (key_code == 2)
+		data->angle_z -= ROTATE_STEP;
+	else if (key_code >= 123 && key_code <= 126)
+		move_camera(key_code, data);
 	remake_image(data);
 }
 
@@ -57,6 +63,6 @@ int	key_hook(int key_code, t_data *data)
 		exit_hook(key_code, data);
 	else
 		change_camera(key_code, data);
-	printf("%d\n", key_code);
+	// printf("%d\n", key_code);
 	return (1);
 }

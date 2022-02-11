@@ -6,19 +6,25 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 21:39:28 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 19:34:18 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define WIN_WIDTH 1200
-# define WIN_HEIGHT 800
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 600
 # define BG_COLOR 0x75BBFD
+
 # define AMB_COEF 10
 # define DIFF_COEF 200
 # define SPEC_COEF 70
+# define SHADOW_COEF 100
+
+# define ROTATE_STEP 0.2
+# define MOVE_STEP 50
+# define FOV_STEP 10
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -79,6 +85,8 @@ typedef struct s_data
 	t_light		*light;
 	t_object	**objects;
 	int			qty;
+	float		angle_y;
+	float		angle_z;
 }	t_data;
 
 void		parser(char *file_name, t_data *data);

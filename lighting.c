@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 21:39:34 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/10 23:04:19 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 			+ specular_light(norm, dir, inter_point, data) * SPEC_COEF);
 	else
 		color = add_color(object->color, data->ambient->ratio * AMB_COEF \
-			+ drop * data->light->brightness);
+			+ diff_light(norm, inter_point, data) * DIFF_COEF \
+			+ drop * SHADOW_COEF * data->light->brightness);
 	return (color);
 }

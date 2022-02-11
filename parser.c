@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 19:40:28 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:51:26 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	count_objects(char *file_name)
 	int		check_read;
 	int		count;
 
+	if (ft_strcmp(&file_name[ft_strlen(file_name) - 3], ".rt"))
+		exit_error("Wrong file extention");
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		exit_error("Can't open file");
