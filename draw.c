@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 19:37:40 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 23:10:08 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,23 @@ int	intersection(t_object **objects, t_vector direction, t_data *data)
 	return (color);
 }
 
-t_vector	rotate_dir_z(t_vector dir, t_data *data)
+
+
+t_vector	rotate_dir(t_vector dir, t_data *data)
 {
 	float	n_x;
 	float	n_y;
-	float	A;
-
-	A = data->angle_z;
-	n_x = dir.x * cos(A) - dir.y * sin(A);
-	n_y = dir.x * sin(A) + dir.y * cos(A);
-	dir = v_norm(vector(n_x, n_y, dir.z));
-	return (dir);
-}
-
-t_vector	rotate_dir_y(t_vector dir, t_data *data)
-{
-	float	n_x;
 	float	n_z;
-	float	A;
+	float	a;
 
-	A = data->angle_y;
-	n_x = dir.x * cos(A) - dir.z * sin(A);
-	n_z = dir.x * sin(A) + dir.z * cos(A);
+	a = data->camera->angle_y;
+	n_x = dir.x * cos(a) - dir.z * sin(a);
+	n_z = dir.x * sin(a) + dir.z * cos(a);
 	dir = v_norm(vector(n_x, dir.y, n_z));
+	a = data->camera->angle_z;
+	n_x = dir.x * cos(a) - dir.y * sin(a);
+	n_y = dir.x * sin(a) + dir.y * cos(a);
+	dir = v_norm(vector(n_x, n_y, dir.z));
 	return (dir);
 }
 
@@ -91,7 +85,7 @@ void	draw_loop(t_data *data)
 	int			x;
 	int			y;
 	int			color;
-	t_vector	dir_base;
+	t_vector	dir_pixel;
 	t_vector	direction;
 	float		dst;
 
@@ -102,10 +96,13 @@ void	draw_loop(t_data *data)
 		while (x < WIN_WIDTH)
 		{
 			dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));
-			dir_base = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2));
-			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_base));
-			direction = rotate_dir_y(direction, data);
-			direction = rotate_dir_z(direction, data);
+			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2));
+			
+			// dir_pixel = rotate_dir(dir_pixel, data);
+			// data->camera->norm = rotate_dir(data->camera->norm, data);
+
+			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));
+			direction = rotate_dir(direction, data);
 			color = intersection(data->objects, direction, data);
 			draw_pixel(data->img, x, y, color);
 			x++;

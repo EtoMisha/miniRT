@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:42:44 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 17:32:16 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 22:22:10 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ void	create_camera(char **arr, t_data *data)
 	data->camera->norm.y = ft_atof(arr[5]);
 	data->camera->norm.z = ft_atof(arr[6]);
 	data->camera->fov = ft_atoi(arr[7]);
+	data->camera->angle_y = 0;
+	data->camera->angle_z = 0;
+	data->camera->dir = v_muls(data->camera->norm, 1);
 	count++;
 }
 

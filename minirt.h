@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 19:34:18 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/11 23:23:26 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
+# define MENU_WIDTH 400
+
 # define BG_COLOR 0x75BBFD
 
 # define AMB_COEF 10
@@ -22,7 +24,7 @@
 # define SPEC_COEF 70
 # define SHADOW_COEF 100
 
-# define ROTATE_STEP 0.2
+# define ROTATE_STEP M_PI / 12
 # define MOVE_STEP 50
 # define FOV_STEP 10
 
@@ -54,6 +56,9 @@ typedef struct s_camera
 	t_vector	point;
 	t_vector	norm;
 	int			fov;
+	float		angle_y;
+	float		angle_z;
+	t_vector	dir;
 }	t_camera;
 
 typedef struct s_light
@@ -85,8 +90,6 @@ typedef struct s_data
 	t_light		*light;
 	t_object	**objects;
 	int			qty;
-	float		angle_y;
-	float		angle_z;
 }	t_data;
 
 void		parser(char *file_name, t_data *data);
@@ -117,6 +120,5 @@ int			key_hook(int key_code, t_data *data);
 
 void		exit_error(char *function);
 int			exit_hook(int key_code, t_data *data);
-// int			exit_hook_esc(int key_code, t_data *data);
 
 #endif
