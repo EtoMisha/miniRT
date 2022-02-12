@@ -6,22 +6,22 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 16:09:10 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:26:47 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	draw_pixel(t_img *img, int x, int y, int color)
-{
-	char	*dest;
+// void	draw_pixel(t_img *img, int x, int y, int color)
+// {
+// 	char	*dest;
 
-	if (x < WIN_WIDTH && x > 0 && y < WIN_HEIGHT && y > 0)
-	{
-		dest = img->address + (y * img->line_len + x * img->bpp / 8);
-		*(unsigned int *)dest = color;
-	}
-}
+// 	if (x < WIN_WIDTH && x > 0 && y < WIN_HEIGHT && y > 0)
+// 	{
+// 		dest = img->address + (y * img->line_len + x * img->bpp / 8);
+// 		*(unsigned int *)dest = color;
+// 	}
+// }
 
 float	find_dist(t_object *object, t_vector start, t_vector direction)
 {
@@ -89,6 +89,7 @@ void	draw_loop(t_data *data)
 	t_vector	dir_pixel;
 	t_vector	direction;
 	float		dst;
+	char	*dest;
 
 	y = 0;
 	while (y < WIN_HEIGHT)
@@ -107,7 +108,12 @@ void	draw_loop(t_data *data)
 			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
 			direction = rotate_dir(direction, data);//поворот камеры примен к каждому вектору до пикселя
 			color = intersection(data->objects, direction, data);//цвет = пересечение
-			draw_pixel(data->img, x, y, color);
+			// draw_pixel(data->img, x, y, color);
+			if (x < WIN_WIDTH && x > 0 && y < WIN_HEIGHT && y > 0)
+			{
+				dest = data->img->address + (y * data->img->line_len + x * data->img->bpp / 8);
+				*(unsigned int *)dest = color;
+			}
 			x++;
 		}
 		y++;

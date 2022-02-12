@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 17:55:25 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:51:37 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_data
 	t_light		*light;
 	t_object	**objects;
 	int			qty;
+	int			select_obj;
 }	t_data;
 
 void		parser(char *file_name, t_data *data);
@@ -118,7 +119,7 @@ int			rgb(int color, char level);
 int			add_color(int color, float coef);
 int			sum_color(int color1, int color2);
 
-int			key_hook(int key_code, t_data *data);
+int			key_hook(int key_code, t_object *obj);
 
 void		exit_error(char *function);
 int			exit_hook(int key_code, t_data *data);
