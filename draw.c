@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 23:10:08 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 16:09:10 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ t_vector	rotate_dir(t_vector dir, t_data *data)
 	float	n_y;
 	float	n_z;
 	float	a;
+	///поворот камеры относительно каждой оси (х у)
 
-	a = data->camera->angle_y;
+	a = data->camera->angle_y;// угол по н
 	n_x = dir.x * cos(a) - dir.z * sin(a);
 	n_z = dir.x * sin(a) + dir.z * cos(a);
 	dir = v_norm(vector(n_x, dir.y, n_z));
-	a = data->camera->angle_z;
+	a = data->camera->angle_z;//угол по z
 	n_x = dir.x * cos(a) - dir.y * sin(a);
 	n_y = dir.x * sin(a) + dir.y * cos(a);
 	dir = v_norm(vector(n_x, n_y, dir.z));
@@ -95,15 +96,17 @@ void	draw_loop(t_data *data)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));
-			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2));
-			
+			dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));  //расст от камеры (по нормали (0,0,1)) до окна
+			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
+			//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
+
+
 			// dir_pixel = rotate_dir(dir_pixel, data);
 			// data->camera->norm = rotate_dir(data->camera->norm, data);
 
-			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));
-			direction = rotate_dir(direction, data);
-			color = intersection(data->objects, direction, data);
+			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
+			direction = rotate_dir(direction, data);//поворот камеры примен к каждому вектору до пикселя
+			color = intersection(data->objects, direction, data);//цвет = пересечение
 			draw_pixel(data->img, x, y, color);
 			x++;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 23:24:01 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:08:02 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	make_window(t_img *img, t_data *data)
 	mlx_put_image_to_window(data->mlx, data->mlx_window, img->ptr, 0, 0);
 	mlx_hook(data->mlx_window, 17, (1L << 0), exit_hook, data);
 	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data);
+
+	mlx_mouse_hook(data->mlx_window, mouse_handler, data);
+
 	mlx_loop(data->mlx);
 }
 

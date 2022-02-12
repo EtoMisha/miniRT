@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:14:38 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 23:19:43 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:43:38 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	rotate_camera(int key_code, t_data *data)
 	{
 		data->camera->angle_z += ROTATE_STEP;
 		data->camera->dir = rotate_z(data->camera->dir, ROTATE_STEP);
-	}	
+	}
 }
 
 void	move_camera(int key_code, t_data *data)

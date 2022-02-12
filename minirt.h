@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 23:23:26 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:30:55 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define DIFF_COEF 200
 # define SPEC_COEF 70
 # define SHADOW_COEF 100
+# define SELECT_COEF 100
 
 # define ROTATE_STEP M_PI / 12
 # define MOVE_STEP 50
@@ -120,5 +121,9 @@ int			key_hook(int key_code, t_data *data);
 
 void		exit_error(char *function);
 int			exit_hook(int key_code, t_data *data);
+
+int			mouse_handler(int button, int x, int y, void *data);
+t_vector	rotate_dir(t_vector dir, t_data *data);
+void		remake_image(t_data *data);
 
 #endif
