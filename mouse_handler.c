@@ -1,23 +1,35 @@
 #include "minirt.h"
 
-int	key_hook1(int key_code, t_object *obj)
-{
-	if (key_code == 91)
-		obj->point.x += 5;
-	// else if (key_code == 256)
-	// 	data->camera->fov += FOV_STEP;
-	// else if (key_code == 257)
-	// 	data->camera->fov -= FOV_STEP;
-	// else if (key_code >= 123 && key_code <= 126)
-	// 	move_camera(key_code, data);
-	// else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
-	// 	rotate_camera(key_code, data);
-	// // printf("%d\n", key_code);
-	// else
-	// 	return (1);
-	// remake_image(data);
-	return (1);
-}
+
+
+// int	key_hook(int key_code, t_object *obj)
+// {
+// 	if (key_code == 53)
+// 		exit_hook(key_code, obj->data);
+// 	else if (key_code == 256)
+// 		obj->data->camera->fov += FOV_STEP;
+// 	else if (key_code == 257)
+// 		obj->data->camera->fov -= FOV_STEP;
+// 	else if (key_code >= 123 && key_code <= 126)
+// 		move_camera(key_code, obj->data);
+// 	else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
+// 		rotate_camera(key_code, obj->data);
+// 	// key_hook(key_code, obj->data);
+// 	if (key_code == 91)
+// 		obj->point.x += 5;
+// 	if (key_code == 84)
+// 		obj->point.x -= 5;
+// 	if (key_code == 86)
+// 		obj->point.y -= 5;
+// 	if (key_code == 88)
+// 		obj->point.y += 5;
+// 	if (key_code == 83)
+// 		obj->point.z -= 5;
+// 	if (key_code == 89)
+// 		obj->point.z += 5;
+// 	remake_image(obj->data);
+// 	return (1);
+// }
 
 int	ft_select(t_object **objects, t_vector direction, t_data *data)
 {
@@ -42,18 +54,12 @@ int	ft_select(t_object **objects, t_vector direction, t_data *data)
 	return (id);
 }
 
-int	mouse_handler(int button, int x, int y, void *data1)
+void	mouse_left(t_data* data, int x, int y, int id)
 {
 	t_vector	dir_pixel;
 	t_vector	direction;
 	float		dst;
-	t_data*		data;
-	int id;
 
-
-	data = (t_data*)data1;
-
-	printf("%d	%d	%d\n", button, x, y);
 
 	dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));  //расст от камеры (по нормали (0,0,1)) до окна
 	dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
@@ -64,11 +70,33 @@ int	mouse_handler(int button, int x, int y, void *data1)
 	id = ft_select(data->objects, direction, data);
 	if (id > -1)
 	{
+		if (data->select_obj > -1)
+			data->objects[data->select_obj]->color = add_color(data->objects[data->select_obj]->color, -SELECT_COEF);
 		data->objects[id]->color = add_color(data->objects[id]->color, SELECT_COEF);
+		data->select_obj = id;
 		remake_image(data);
-		data->objects[id]->color = add_color(data->objects[id]->color, -SELECT_COEF);
+
 	}
-	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook1, data->objects[id]);
+	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[id]);
+}
+
+int	mouse_handler(int button, int x, int y, void *data1)
+{
+	t_data*		data;
+	int			id = 0;
+
+	data = (t_data*)data1;
+
+	// printf("%d	%d	%d\n", button, x, y);
+
+	if (button == 1)
+	{
+		mouse_left(data, x, y, id);
+
+	}
+	// if (button == 2)
+	// 	mouse_left()
+
 
 	return 0;
 }

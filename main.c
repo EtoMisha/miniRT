@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 17:08:02 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:49:20 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	make_window(t_img *img, t_data *data)
 	draw_loop(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, img->ptr, 0, 0);
 	mlx_hook(data->mlx_window, 17, (1L << 0), exit_hook, data);
-	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data);
+
+	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[0]);
 
 	mlx_mouse_hook(data->mlx_window, mouse_handler, data);
 
@@ -40,6 +41,7 @@ void	default_values(t_data *data, t_img *img)
 	data->light = NULL;
 	data->objects = NULL;
 	data->qty = 0;
+	data->select_obj = -1;
 }
 
 int	main(int argc, char **argv)

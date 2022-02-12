@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:14:38 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 17:43:38 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:51:32 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	rotate_camera(int key_code, t_data *data)
 
 void	move_camera(int key_code, t_data *data)
 {
+
 	if (key_code == 126)
 		data->camera->point = v_sum(data->camera->point, \
 			v_muls(data->camera->dir, MOVE_STEP));
@@ -84,21 +85,33 @@ void	move_camera(int key_code, t_data *data)
 			v_muls(v_mulv(data->camera->dir, vector(0, 0, 1)), MOVE_STEP));
 }
 
-int	key_hook(int key_code, t_data *data)
+
+int	key_hook(int key_code, t_object *obj)
 {
 	if (key_code == 53)
-		exit_hook(key_code, data);
+		exit_hook(key_code, obj->data);
 	else if (key_code == 256)
-		data->camera->fov += FOV_STEP;
+		obj->data->camera->fov += FOV_STEP;
 	else if (key_code == 257)
-		data->camera->fov -= FOV_STEP;
+		obj->data->camera->fov -= FOV_STEP;
 	else if (key_code >= 123 && key_code <= 126)
-		move_camera(key_code, data);
+		move_camera(key_code, obj->data);
 	else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
-		rotate_camera(key_code, data);
-	// printf("%d\n", key_code);
-	else
-		return (1);
-	remake_image(data);
+		rotate_camera(key_code, obj->data);
+	// key_hook(key_code, obj->data);
+	if (key_code == 91)
+		obj->point.x += 5;
+	if (key_code == 84)
+		obj->point.x -= 5;
+	if (key_code == 86)
+		obj->point.y -= 5;
+	if (key_code == 88)
+		obj->point.y += 5;
+	if (key_code == 83)
+		obj->point.z -= 5;
+	if (key_code == 89)
+		obj->point.z += 5;
+	remake_image(obj->data);
 	return (1);
 }
+
