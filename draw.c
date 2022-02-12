@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 19:54:42 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 21:25:02 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // 		*(unsigned int *)dest = color;
 // 	}
 // }
+
 
 float	find_dist(t_object *object, t_vector start, t_vector direction)
 {
@@ -83,6 +84,7 @@ t_vector	rotate_dir(t_vector dir, t_data *data)
 	return (dir);
 }
 
+
 void	draw_loop(t_data *data)
 {
 	int			x;
@@ -94,12 +96,13 @@ void	draw_loop(t_data *data)
 	char	*dest;
 
 	y = 0;
+	dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));  //расст от камеры (по нормали (0,0,1)) до окна
 	while (y < WIN_HEIGHT)
 	{
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));  //расст от камеры (по нормали (0,0,1)) до окна
+
 			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
 			//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
 

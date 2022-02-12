@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 19:49:20 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 21:26:59 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	make_window(t_img *img, t_data *data)
 {
 	data->mlx = mlx_init();
 	data->mlx_window = mlx_new_window(data->mlx, \
-		WIN_WIDTH + MENU_WIDTH, WIN_HEIGHT, "My beautiful miniRT window");
+		WIN_WIDTH, WIN_HEIGHT, "My beautiful miniRT window");
 	img->ptr = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img->address = mlx_get_data_addr(img->ptr, \
 		&img->bpp, &img->line_len, &img->endian);

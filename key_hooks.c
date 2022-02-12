@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:14:38 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 19:51:32 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 21:10:54 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,17 @@ int	key_hook(int key_code, t_object *obj)
 		rotate_camera(key_code, obj->data);
 	// key_hook(key_code, obj->data);
 	if (key_code == 91)
-		obj->point.x += 5;
+		obj->point.x += 15;
 	if (key_code == 84)
-		obj->point.x -= 5;
+		obj->point.x -= 15;
 	if (key_code == 86)
-		obj->point.y -= 5;
+		obj->point.y -= 15;
 	if (key_code == 88)
-		obj->point.y += 5;
+		obj->point.y += 15;
 	if (key_code == 83)
-		obj->point.z -= 5;
+		obj->point.z -= 15;
 	if (key_code == 89)
-		obj->point.z += 5;
+		obj->point.z += 15;
 	remake_image(obj->data);
 	return (1);
 }

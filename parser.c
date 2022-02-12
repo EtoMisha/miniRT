@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 19:51:55 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 20:19:15 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void	format_line(char *line)
 static void	create_objects(char **arr, t_data *data)
 {
 	static int	count = -1;
-
 	if (!ft_strcmp(arr[0], "A"))
 		create_ambient(arr, data);
 	else if (!ft_strcmp(arr[0], "C"))
@@ -59,6 +58,7 @@ static void	create_objects(char **arr, t_data *data)
 		data->objects[count] = create_plane(arr, &count, data);
 	else if (!ft_strcmp(arr[0], "cy"))
 		data->objects[count] = create_cylinder(arr, &count, data);
+
 	else
 		exit_error("Corrupted file");
 }
@@ -116,4 +116,6 @@ void	parser(char *file_name, t_data *data)
 		clear_arr_line(arr, line);
 	}
 	close (fd);
+	if (!data->ambient || !data->camera || !data->light)
+		exit_error("Corrupted file");
 }

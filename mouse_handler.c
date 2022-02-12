@@ -1,36 +1,6 @@
 #include "minirt.h"
 
 
-
-// int	key_hook(int key_code, t_object *obj)
-// {
-// 	if (key_code == 53)
-// 		exit_hook(key_code, obj->data);
-// 	else if (key_code == 256)
-// 		obj->data->camera->fov += FOV_STEP;
-// 	else if (key_code == 257)
-// 		obj->data->camera->fov -= FOV_STEP;
-// 	else if (key_code >= 123 && key_code <= 126)
-// 		move_camera(key_code, obj->data);
-// 	else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
-// 		rotate_camera(key_code, obj->data);
-// 	// key_hook(key_code, obj->data);
-// 	if (key_code == 91)
-// 		obj->point.x += 5;
-// 	if (key_code == 84)
-// 		obj->point.x -= 5;
-// 	if (key_code == 86)
-// 		obj->point.y -= 5;
-// 	if (key_code == 88)
-// 		obj->point.y += 5;
-// 	if (key_code == 83)
-// 		obj->point.z -= 5;
-// 	if (key_code == 89)
-// 		obj->point.z += 5;
-// 	remake_image(obj->data);
-// 	return (1);
-// }
-
 int	ft_select(t_object **objects, t_vector direction, t_data *data)
 {
 	int		i;
@@ -80,6 +50,20 @@ void	mouse_left(t_data* data, int x, int y, int id)
 	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[id]);
 }
 
+void	mouse_right(t_data *data)
+{
+	printf("data->light->id: %d\n", data->light->id);
+	printf("data->light->type: %d\n", data->light->type);
+	printf("data->select_obj: %d\n", data->select_obj);
+	if (data->select_obj > -1)
+		data->objects[data->select_obj]->color = add_color(data->objects[data->select_obj]->color, -SELECT_COEF);
+	data->select_obj = data->light->id;
+	// printf("data->select_obj: %d\n", data->select_obj);
+	remake_image(data);
+	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->light);
+
+}
+
 int	mouse_handler(int button, int x, int y, void *data1)
 {
 	t_data*		data;
@@ -87,15 +71,14 @@ int	mouse_handler(int button, int x, int y, void *data1)
 
 	data = (t_data*)data1;
 
-	// printf("%d	%d	%d\n", button, x, y);
 
 	if (button == 1)
 	{
 		mouse_left(data, x, y, id);
 
 	}
-	// if (button == 2)
-	// 	mouse_left()
+	if (button == 2)
+		mouse_right(data);
 
 
 	return 0;

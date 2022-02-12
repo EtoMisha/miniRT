@@ -10,7 +10,7 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-ADD_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -O3
+ADD_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -O3 -O2
 
 INCLUDES = minirt.h libft/libft.h mlx/mlx.h vectors.h
 
