@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 17:30:55 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:55:25 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_object
 	float		diameter;
 	float		height;
 	int			color;
+	struct s_data	*data;
 }	t_object;
 
 typedef struct s_data
@@ -99,9 +100,9 @@ int			count_arr(char **arr);
 void		create_ambient(char **arr, t_data *data);
 void		create_camera(char **arr, t_data *data);
 void		create_light(char **arr, t_data *data);
-t_object	*create_sphere(char **arr, int count);
-t_object	*create_plane(char **arr, int count);
-t_object	*create_cylinder(char **arr, int count);
+t_object	*create_sphere(char **arr, int count, t_data *data);
+t_object	*create_plane(char **arr, int count, t_data *data);
+t_object	*create_cylinder(char **arr, int count, t_data *data);
 
 void		draw_loop(t_data *data);
 int			lighting(t_object *object, t_vector dir, t_data *data, float dist);

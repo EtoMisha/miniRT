@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 16:51:26 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 17:55:08 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,17 @@ static void	create_objects(char **arr, t_data *data)
 		create_light(arr, data);
 	else if (!ft_strcmp(arr[0], "sp"))
 	{
-		data->objects[count] = create_sphere(arr, count);
+		data->objects[count] = create_sphere(arr, count, data);
 		count++;
 	}	
 	else if (!ft_strcmp(arr[0], "pl"))
 	{
-		data->objects[count] = create_plane(arr, count);
+		data->objects[count] = create_plane(arr, count, data);
 		count++;
 	}
 	else if (!ft_strcmp(arr[0], "cy"))
 	{
-		data->objects[count] = create_cylinder(arr, count);
+		data->objects[count] = create_cylinder(arr, count, data);
 		count++;
 	}
 	else
