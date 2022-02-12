@@ -4,18 +4,18 @@ int	key_hook1(int key_code, t_object *obj)
 {
 	if (key_code == 91)
 		obj->point.x += 5;
-	else if (key_code == 256)
-		data->camera->fov += FOV_STEP;
-	else if (key_code == 257)
-		data->camera->fov -= FOV_STEP;
-	else if (key_code >= 123 && key_code <= 126)
-		move_camera(key_code, data);
-	else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
-		rotate_camera(key_code, data);
-	// printf("%d\n", key_code);
-	else
-		return (1);
-	remake_image(data);
+	// else if (key_code == 256)
+	// 	data->camera->fov += FOV_STEP;
+	// else if (key_code == 257)
+	// 	data->camera->fov -= FOV_STEP;
+	// else if (key_code >= 123 && key_code <= 126)
+	// 	move_camera(key_code, data);
+	// else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
+	// 	rotate_camera(key_code, data);
+	// // printf("%d\n", key_code);
+	// else
+	// 	return (1);
+	// remake_image(data);
 	return (1);
 }
 

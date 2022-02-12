@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:42:44 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/11 22:22:10 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:30:55 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,3 @@ void	create_camera(char **arr, t_data *data)
 	count++;
 }
 
-void	create_light(char **arr, t_data *data)
-{
-	if (count_arr(arr) != 8)
-		exit_error("Currupted file");
-	data->light = malloc(sizeof(t_light));
-	if (!data->light)
-		exit_error("Malloc error");
-	data->light->point.x = ft_atof(arr[1]);
-	data->light->point.y = ft_atof(arr[2]);
-	data->light->point.z = ft_atof(arr[3]);
-	data->light->brightness = ft_atof(arr[4]);
-	data->light->color = create_rgb(ft_atoi(arr[5]), \
-		ft_atoi(arr[6]), ft_atoi(arr[7]));
-}

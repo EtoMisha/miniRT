@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 16:09:10 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/12 19:53:37 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ float	find_dist(t_object *object, t_vector start, t_vector direction)
 		distance = inter_cylinder(start, direction, object);
 	return (distance);
 }
+
+
 
 int	intersection(t_object **objects, t_vector direction, t_data *data)
 {
