@@ -26,16 +26,13 @@ int	ft_select(t_object **objects, t_vector direction, t_data *data)
 
 void	mouse_left(t_data* data, int x, int y, int id)
 {
-	t_vector	dir_pixel;
 	t_vector	direction;
 	float		dst;
 
 
 	dst = WIN_WIDTH / (2 * tanf(data->camera->fov * M_PI / 360));  //расст от камеры (по нормали (0,0,1)) до окна
-	dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
-	//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
-
-	direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
+	direction = find_dir(dst, x, y, data->camera->norm);//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
+			//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
 	direction = rotate_dir(direction, data);//поворот камеры примен к каждому вектору до пикселя
 	id = ft_select(data->objects, direction, data);
 	if (id > -1)

@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 14:45:18 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:47:38 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	print_usage()
+{
+	ft_putstr_fd( GREEN"~~~~~~~USAGE~~~~~~~\n"DEFAULT, 1);
+	ft_putstr_fd("	7️⃣  8️⃣  9️⃣\n"DEFAULT, 1);
+	ft_putstr_fd("	4️⃣  5️⃣  6️⃣\n"DEFAULT, 1);
+	ft_putstr_fd("	1️⃣  2️⃣  3️⃣\n"DEFAULT, 1);
+	ft_putstr_fd("	\033[1;47m➖\033[0;37m\n", 1);//-
+	ft_putstr_fd("	\033[1;47m➕\033[0;37m\n", 1);//+
+	ft_putstr_fd(BLUE"	ᐊ ᐅ ᐃ ᐁ ", 1);
+
+}
 
 void	make_window(t_img *img, t_data *data)
 {
@@ -49,10 +61,15 @@ int	main(int argc, char **argv)
 	t_data		data;
 	t_img		img;
 
+	print_usage();
 	if (argc == 2)
 	{
+
 		default_values(&data, &img);
 		parser(argv[1], &data);
+		if (!data.ambient || !data.camera || !data.light)
+			exit_error("Corrupted file");
+
 		make_window(&img, &data);
 	}
 }

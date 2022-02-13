@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 05:59:32 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:46:47 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,4 @@ void	parser(char *file_name, t_data *data)
 		clear_arr_line(arr, line);
 	}
 	close (fd);
-	if (!data->ambient || !data->camera || !data->light)
-		exit_error("Corrupted file");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 05:25:33 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:23:15 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 // # define MENU_WIDTH 400
+
+# define GREEN "\033[1;32m"
+# define BLUE "\033[1;36m"
+# define RED "\033[1;31m"
+# define DEFAULT "\033[0;37m"
+# define YELOW "\033[1;33m"
+# define B_PINK "\033[3;45m"
+# define B_GRAY "\033[1;47m"
+# define VIOLET "\033[1;35m"
 
 # define BG_COLOR 0x75BBFD
 
@@ -130,5 +139,6 @@ int			exit_hook(int key_code, t_data *data);
 int			mouse_handler(int button, int x, int y, void *data);
 t_vector	rotate_dir(t_vector dir, t_data *data);
 void		remake_image(t_data *data);
+t_vector	find_dir(float dst, float x, float y, t_vector norm);
 
 #endif
