@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 20:40:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/10 21:39:20 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 04:11:41 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,27 +61,7 @@ float	inter_plane(t_vector camera, t_vector dir, t_object *plane)
 	return (t);
 }
 
-t_vector	cylinder_norm(t_object *cyl, t_vector inter)
-{
-	t_vector	norm;
-	t_vector	top_center;
-	float		t;
-	t_vector	pt;
-
-	top_center = v_sum(cyl->point, v_muls(cyl->norm, cyl->height));
-	if (v_len(v_sub(inter, cyl->point)) < cyl->diameter / 2)
-		norm = v_muls(cyl->norm, -1);
-	else if (v_len(v_sub(inter, top_center)) < cyl->diameter / 2)
-		norm = cyl->norm;
-	else
-	{
-		t = v_scal(v_sub(inter, cyl->point), cyl->norm);
-		pt = v_sum(cyl->point, v_muls(cyl->norm, t));
-		norm = v_norm(v_sub(inter, pt)); 
-	}
-	return (norm);
-}
-
+/*
 float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)
 {
 	float	ra = cyl->diameter / 2;
@@ -106,4 +86,44 @@ float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)
     t = (((y<0.0)?0.0:caca) - caoc)/card;
     if( fabs(b+a*t)<h ) return ( t);
     return (0); //no intersection
+}
+*/
+
+float	calc_t(float caoc, float card, float caca, float y)
+{
+	float	t;
+
+	if (y < 0)
+		t = (0 - caoc) / card;
+	else
+		t = (caca - caoc) / card;
+	return (t);
+}
+
+float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)
+{
+	t_vector	ca;
+	float		a;
+	float		b;
+	float		c;
+	float		y;
+
+	ca = v_sub(v_sum(cyl->point, v_muls(cyl->norm, cyl->height)), cyl->point);
+	a = v_scal(ca, ca) - v_scal(ca, rd) * v_scal(ca, rd);
+	b = v_scal(ca, ca) * v_scal(v_sub(ro, cyl->point), rd) \
+		- v_scal(ca, v_sub(ro, cyl->point)) * v_scal(ca, rd);
+	c = v_scal(ca, ca) * v_scal(v_sub(ro, cyl->point), v_sub(ro, cyl->point)) \
+		- v_scal(ca, v_sub(ro, cyl->point)) * v_scal(ca, v_sub(ro, cyl->point)) \
+		- (cyl->diameter / 2) * (cyl->diameter / 2) * v_scal(ca, ca);
+	if ((b * b - a * c) < 0)
+		return (0);
+	y = v_scal(ca, v_sub(ro, cyl->point)) + ((-b - sqrt((b * b - a * c))) / a) \
+		* v_scal(ca, rd);
+	if (y > 0 && y < v_scal(ca, ca))
+		return (((-b - sqrt((b * b - a * c))) / a));
+	y = calc_t(v_scal(ca, v_sub(ro, cyl->point)), \
+		v_scal(ca, rd), v_scal(ca, ca), y);
+	if (fabs(b + a * y) < sqrt((b * b - a * c)))
+		return (y);
+	return (0);
 }

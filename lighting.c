@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:25:09 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 04:51:43 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,14 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 		norm = cylinder_norm(object, inter_point); // нормаль для цилиндра неправильно считается
 	drop = drop_shadow(inter_point, data, object);
 	if (drop == 0)
-		color = add_color(object->color, data->ambient->ratio * AMB_COEF \
-			+ diff_light(norm, inter_point, data) * DIFF_COEF \
-			+ specular_light(norm, dir, inter_point, data) * SPEC_COEF);
+			color = add_color3(mul_color(object->color, data->ambient->ratio), \
+			mul_color(object->color, diff_light(norm, inter_point, data) * DIFF_COEF), \
+			mul_color(object->color, specular_light(norm, dir, inter_point, data) * SPEC_COEF));
+		// color = add_color(object->color, data->ambient->ratio \
+		// 	+ diff_light(norm, inter_point, data) * DIFF_COEF \
+		// 	+ specular_light(norm, dir, inter_point, data) * SPEC_COEF);
 	else
-		color = add_color(object->color, data->ambient->ratio * AMB_COEF \
-			+ diff_light(norm, inter_point, data) * DIFF_COEF \
-			+ drop * SHADOW_COEF * data->light->brightness);
+		color = add_color(add_color3(mul_color(object->color, data->ambient->ratio), \
+			mul_color(object->color, diff_light(norm, inter_point, data) * DIFF_COEF), 0), -50);
 	return (color);
 }

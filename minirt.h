@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:26:50 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 04:53:00 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # define BG_COLOR 0x75BBFD
 
 # define AMB_COEF 10
-# define DIFF_COEF 200
-# define SPEC_COEF 70
-# define SHADOW_COEF 100
+# define DIFF_COEF 2
+# define SPEC_COEF 4
+# define SHADOW_COEF 4
 # define SELECT_COEF 100
 
 # define ROTATE_STEP M_PI / 12
@@ -118,7 +118,9 @@ t_vector	cylinder_norm(t_object *cyl, t_vector inter);
 int			create_rgb(int r, int g, int b);
 int			rgb(int color, char level);
 int			add_color(int color, float coef);
+int			mul_color(int color1, float coef);
 int			sum_color(int color1, int color2);
+int			add_color3(int c1, int c2, int c3);
 
 int			key_hook(int key_code, t_object *obj);
 

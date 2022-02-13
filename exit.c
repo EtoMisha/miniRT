@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:35:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/09 18:13:36 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/12 21:44:05 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	exit_error(char *message)
 {
-	printf("Error\n%s\n", message);
+	ft_putstr_fd("Error\n", 1);
+	ft_putstr_fd(message, 1);
+	ft_putstr_fd("\n", 1);
 	exit(1);
 }
 
@@ -26,13 +28,13 @@ int	exit_hook(int key_code, t_data *data)
 	exit(0);
 }
 
-int	exit_hook_esc(int key_code, t_data *data)
-{
-	(void)data;
-	if (key_code == 53)
-	{
-		ft_putstr_fd("Exit\n", 1);
-		exit(0);
-	}
-	return (1);
-}
+// int	exit_hook_esc(int key_code, t_data *data)
+// {
+// 	(void)data;
+// 	if (key_code == 53)
+// 	{
+// 		ft_putstr_fd("Exit\n", 1);
+// 		exit(0);
+// 	}
+// 	return (1);
+// }

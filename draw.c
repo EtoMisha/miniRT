@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:25:02 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 04:12:05 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,26 @@
 // 	}
 // }
 
+t_vector	cylinder_norm(t_object *cyl, t_vector inter)
+{
+	t_vector	norm;
+	t_vector	top_center;
+	float		t;
+	t_vector	pt;
+
+	top_center = v_sum(cyl->point, v_muls(cyl->norm, cyl->height));
+	if (v_len(v_sub(inter, cyl->point)) < cyl->diameter / 2)
+		norm = v_muls(cyl->norm, -1);
+	else if (v_len(v_sub(inter, top_center)) < cyl->diameter / 2)
+		norm = cyl->norm;
+	else
+	{
+		t = v_scal(v_sub(inter, cyl->point), cyl->norm);
+		pt = v_sum(cyl->point, v_muls(cyl->norm, t));
+		norm = v_norm(v_sub(inter, pt));
+	}
+	return (norm);
+}
 
 float	find_dist(t_object *object, t_vector start, t_vector direction)
 {
@@ -37,8 +57,6 @@ float	find_dist(t_object *object, t_vector start, t_vector direction)
 		distance = inter_cylinder(start, direction, object);
 	return (distance);
 }
-
-
 
 int	intersection(t_object **objects, t_vector direction, t_data *data)
 {
@@ -63,8 +81,6 @@ int	intersection(t_object **objects, t_vector direction, t_data *data)
 	return (color);
 }
 
-
-
 t_vector	rotate_dir(t_vector dir, t_data *data)
 {
 	float	n_x;
@@ -83,7 +99,6 @@ t_vector	rotate_dir(t_vector dir, t_data *data)
 	dir = v_norm(vector(n_x, n_y, dir.z));
 	return (dir);
 }
-
 
 void	draw_loop(t_data *data)
 {
