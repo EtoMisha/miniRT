@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 05:58:42 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:19:09 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,25 @@ t_vector	rotate_dir(t_vector dir, t_data *data)
 	return (dir);
 }
 
+t_vector find_dir(float dst, float x, float y, t_vector norm)
+{
+	t_vector	a;
+	t_vector	b;
+	t_vector	c;
+	t_vector	dir;
+
+	a = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2));
+	b = vector(-(x - WIN_WIDTH / 2), dst, -(y - WIN_HEIGHT / 2));
+	c = vector(-(y - WIN_HEIGHT / 2), x - WIN_WIDTH / 2, dst);
+	dir = v_sum3(v_muls(a, norm.x), v_muls(b, norm.y), v_muls(c, norm.z));
+	return (dir);
+}
+
 void	draw_loop(t_data *data)
 {
 	int			x;
 	int			y;
 	int			color;
-	t_vector	dir_pixel;
 	t_vector	direction;
 	float		dst;
 	char	*dest;
@@ -117,10 +130,8 @@ void	draw_loop(t_data *data)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-
-			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
+			direction = find_dir(dst, x, y, data->camera->norm);//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
 			//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
-			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
 			direction = rotate_dir(direction, data);//поворот камеры примен к каждому вектору до пикселя
 			color = intersection(data->objects, direction, data);//цвет = пересечение
 			// draw_pixel(data->img, x, y, color);

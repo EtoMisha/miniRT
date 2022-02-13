@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:53:39 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/07 15:19:14 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:20:13 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_vector
 
 t_vector	vector(float x, float y, float z);
 t_vector	v_sum(t_vector a, t_vector b);
+t_vector	v_sum3(t_vector v1, t_vector v2, t_vector v3);
 t_vector	v_sub(t_vector a, t_vector b);
-t_vector	v_mul(t_vector a, t_vector b);
 t_vector	v_muls(t_vector a, float s);
 t_vector	v_mulv(t_vector a, t_vector b);
 float		v_scal(t_vector a, t_vector b);

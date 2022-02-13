@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:25:51 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:15:40 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:19:00 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ t_vector	v_sum(t_vector a, t_vector b)
 	return (result);
 }
 
+t_vector v_sum3(t_vector v1, t_vector v2, t_vector v3)
+{
+	t_vector result;
+	result.x = v1.x + v2.x + v3.x;
+	result.y = v1.y + v2.y + v3.y;
+	result.z = v1.z + v2.z + v3.z;
+	return (result);
+}
+
 t_vector	v_sub(t_vector a, t_vector b)
 {
 	t_vector	result;
@@ -39,16 +48,6 @@ t_vector	v_sub(t_vector a, t_vector b)
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;
 	result.z = a.z - b.z;
-	return (result);
-}
-
-t_vector	v_mul(t_vector a, t_vector b)
-{
-	t_vector	result;
-
-	result.x = a.x * b.x;
-	result.y = a.y * b.y;
-	result.z = a.z * b.z;
 	return (result);
 }
 
