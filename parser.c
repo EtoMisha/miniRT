@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 05:59:32 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 20:12:29 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	clear_arr_line(char **arr, char *line)
 	}
 	free(arr);
 	free(line);
+	
 }
 
 static void	format_line(char *line)
@@ -85,6 +86,7 @@ int	count_objects(char *file_name)
 		if (line[0] == 'p' || line[0] == 's' || \
 			line[0] == 'c' || line[0] == 'L')
 			count++;
+		free(line);
 	}
 	close(fd);
 	return (count);
