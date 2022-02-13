@@ -45,16 +45,17 @@ void	mouse_left(t_data* data, int x, int y, int id)
 		data->objects[id]->color = add_color(data->objects[id]->color, SELECT_COEF);
 		data->select_obj = id;
 		remake_image(data);
-
+		mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[id]);
 	}
-	mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[id]);
+	else
+		mlx_hook(data->mlx_window, 2, (1L << 0), key_hook, data->objects[0]);
 }
 
 void	mouse_right(t_data *data)
 {
-	printf("data->light->id: %d\n", data->light->id);
-	printf("data->light->type: %d\n", data->light->type);
-	printf("data->select_obj: %d\n", data->select_obj);
+	// printf("data->light->id: %d\n", data->light->id);
+	// printf("data->light->type: %d\n", data->light->type);
+	// printf("data->select_obj: %d\n", data->select_obj);
 	if (data->select_obj > -1)
 		data->objects[data->select_obj]->color = add_color(data->objects[data->select_obj]->color, -SELECT_COEF);
 	data->select_obj = data->light->id;

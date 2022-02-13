@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 04:51:43 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:56:52 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ float	drop_shadow(t_vector inter, t_data *data, t_object *obj)
 {
 	int			i;
 	t_vector	dir;
+	float		distance;
 
 	dir = v_norm(v_sub(data->light->point, inter));
 	i = 0;
 	while (i < data->qty)
 	{
-		if (find_dist(data->objects[i], inter, dir) > 0 && obj->id != i && \
-			data->objects[i]->type != 1) // костыль чтоб плоскость не отбрасывала тень
-		{
+		distance = find_dist(data->objects[i], inter, dir);
+		if (distance > 0 && distance < v_dist(inter, data->light->point) \
+			&& obj->id != i)
 			return (-1);
-		}
 		i++;
 	}
 	return (0);
@@ -65,17 +65,18 @@ int	lighting(t_object *object, t_vector dir, t_data *data, float dist)
 	if (object->type == 1)
 		norm = v_norm(object->norm);
 	if (object->type == 2)
-		norm = cylinder_norm(object, inter_point); // нормаль для цилиндра неправильно считается
+		norm = cylinder_norm(object, inter_point);
 	drop = drop_shadow(inter_point, data, object);
 	if (drop == 0)
-			color = add_color3(mul_color(object->color, data->ambient->ratio), \
-			mul_color(object->color, diff_light(norm, inter_point, data) * DIFF_COEF), \
-			mul_color(object->color, specular_light(norm, dir, inter_point, data) * SPEC_COEF));
-		// color = add_color(object->color, data->ambient->ratio \
-		// 	+ diff_light(norm, inter_point, data) * DIFF_COEF \
-		// 	+ specular_light(norm, dir, inter_point, data) * SPEC_COEF);
+		color = add_color3(mul_color(object->color, data->ambient->ratio), \
+			mul_color(object->color, \
+			diff_light(norm, inter_point, data) * DIFF_COEF), \
+			mul_color(object->color, \
+			specular_light(norm, dir, inter_point, data) * SPEC_COEF));
 	else
-		color = add_color(add_color3(mul_color(object->color, data->ambient->ratio), \
-			mul_color(object->color, diff_light(norm, inter_point, data) * DIFF_COEF), 0), -50);
+		color = add_color(add_color3 \
+			(mul_color(object->color, data->ambient->ratio), \
+			mul_color(object->color, \
+			diff_light(norm, inter_point, data) * DIFF_COEF), 0), SHADOW_COEF);
 	return (color);
 }

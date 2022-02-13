@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 04:12:05 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:58:42 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,6 @@ void	draw_loop(t_data *data)
 
 			dir_pixel = vector(dst, x - WIN_WIDTH / 2, -(y - WIN_HEIGHT / 2)); //вектор(до каждого пикселя) (x =(раст до окна)
 			//, y =(х окна - 1/2окна), z = (- (y окна - 1/2 высоты окна)))
-
-
-			// dir_pixel = rotate_dir(dir_pixel, data);
-			// data->camera->norm = rotate_dir(data->camera->norm, data);
-
 			direction = v_norm(v_sum(v_muls(data->camera->norm, dst), dir_pixel));//это вектор до пикселя!норм камеры( раст от кам до окн * нормаль камеры + вектор до пикселя)
 			direction = rotate_dir(direction, data);//поворот камеры примен к каждому вектору до пикселя
 			color = intersection(data->objects, direction, data);//цвет = пересечение

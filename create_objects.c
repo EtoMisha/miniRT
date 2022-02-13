@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_objects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 00:00:21 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:00:18 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:58:02 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_object	*create_sphere(char **arr, int *count, t_data *data)
 	new->color = create_rgb(ft_atoi(arr[5]), \
 		ft_atoi(arr[6]), ft_atoi(arr[7]));
 	new->data = data;
-
 	return (new);
 }
 
@@ -66,7 +65,6 @@ t_object	*create_plane(char **arr, int *count, t_data *data)
 	new->color = create_rgb(ft_atoi(arr[7]), \
 		ft_atoi(arr[8]), ft_atoi(arr[9]));
 	new->data = data;
-
 	return (new);
 }
 
@@ -93,7 +91,6 @@ t_object	*create_cylinder(char **arr, int *count, t_data *data)
 	new->color = create_rgb(ft_atoi(arr[9]), \
 		ft_atoi(arr[10]), ft_atoi(arr[11]));
 	new->data = data;
-
 	return (new);
 }
 

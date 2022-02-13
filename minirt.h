@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 04:53:00 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:25:33 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define AMB_COEF 10
 # define DIFF_COEF 2
 # define SPEC_COEF 4
-# define SHADOW_COEF 4
-# define SELECT_COEF 100
+# define SHADOW_COEF -30
+# define SELECT_COEF 50
 
 # define ROTATE_STEP M_PI / 12
 # define MOVE_STEP 50

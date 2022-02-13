@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 20:19:15 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:59:32 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	format_line(char *line)
 static void	create_objects(char **arr, t_data *data)
 {
 	static int	count = -1;
+
 	if (!ft_strcmp(arr[0], "A"))
 		create_ambient(arr, data);
 	else if (!ft_strcmp(arr[0], "C"))
@@ -58,7 +59,6 @@ static void	create_objects(char **arr, t_data *data)
 		data->objects[count] = create_plane(arr, &count, data);
 	else if (!ft_strcmp(arr[0], "cy"))
 		data->objects[count] = create_cylinder(arr, &count, data);
-
 	else
 		exit_error("Corrupted file");
 }
@@ -82,7 +82,8 @@ int	count_objects(char *file_name)
 		check_read = get_next_line(fd, &line);
 		if (check_read == -1)
 			exit_error("Can't read file");
-		if (line[0] == 'p' || line[0] == 's' || line[0] == 'c' || line[0] == 'L')
+		if (line[0] == 'p' || line[0] == 's' || \
+			line[0] == 'c' || line[0] == 'L')
 			count++;
 	}
 	close(fd);

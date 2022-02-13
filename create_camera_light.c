@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 21:42:44 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 18:30:55 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/13 05:57:49 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,3 @@ void	create_camera(char **arr, t_data *data)
 	data->camera->dir = v_muls(data->camera->norm, 1);
 	count++;
 }
-
