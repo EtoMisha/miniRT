@@ -2,9 +2,9 @@ SRCS =  main.c				create_camera_light.c	\
 		parser.c 			create_objects.c		\
 		draw.c				vectors.c				\
 		intersection.c		vectors2.c				\
-		lighting.c			exit.c					\
-		color.c				key_hooks.c				\
-		mouse_handler.c
+		lighting.c			vectors3.c				\
+		color.c				exit.c					\
+		mouse_handler.c		key_hooks.c
 
 CC = gcc
 

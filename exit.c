@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:35:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/12 21:44:05 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:06:43 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,3 @@ int	exit_hook(int key_code, t_data *data)
 	ft_putstr_fd("Exit\n", 1);
 	exit(0);
 }
-
-// int	exit_hook_esc(int key_code, t_data *data)
-// {
-// 	(void)data;
-// 	if (key_code == 53)
-// 	{
-// 		ft_putstr_fd("Exit\n", 1);
-// 		exit(0);
-// 	}
-// 	return (1);
-// }

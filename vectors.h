@@ -6,7 +6,7 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:53:39 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 17:20:13 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:21:40 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@ float		v_scal(t_vector a, t_vector b);
 float		v_len(t_vector a);
 float		v_dist(t_vector a, t_vector b);
 t_vector	v_norm(t_vector a);
+t_vector	rotate_z(t_vector dir, float a);
+t_vector	rotate_y(t_vector dir, float a);
+t_vector	rotate_vector(t_vector vect, float alpha);
 
 #endif
