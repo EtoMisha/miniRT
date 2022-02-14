@@ -6,11 +6,32 @@
 /*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 18:08:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 17:27:27 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:17:11 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_vector	cylinder_norm(t_object *cyl, t_vector inter)
+{
+	t_vector	norm;
+	t_vector	top_center;
+	float		t;
+	t_vector	pt;
+
+	top_center = v_sum(cyl->point, v_muls(cyl->norm, cyl->height));
+	if (v_len(v_sub(inter, cyl->point)) < cyl->diameter / 2)
+		norm = v_muls(cyl->norm, -1);
+	else if (v_len(v_sub(inter, top_center)) < cyl->diameter / 2)
+		norm = cyl->norm;
+	else
+	{
+		t = v_scal(v_sub(inter, cyl->point), cyl->norm);
+		pt = v_sum(cyl->point, v_muls(cyl->norm, t));
+		norm = v_norm(v_sub(inter, pt));
+	}
+	return (norm);
+}
 
 float	specular_light(t_vector norm, t_vector dir, \
 	t_vector inter_point, t_data *data)

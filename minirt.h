@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 20:23:15 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/14 14:21:57 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
-// # define MENU_WIDTH 400
 
 # define GREEN "\033[1;32m"
 # define BLUE "\033[1;36m"
@@ -34,7 +33,7 @@
 # define SHADOW_COEF -30
 # define SELECT_COEF 50
 
-# define ROTATE_STEP M_PI / 12
+# define ROTATE_STEP 0.2617994
 # define MOVE_STEP 50
 # define FOV_STEP 10
 
@@ -81,14 +80,14 @@ typedef struct s_light
 
 typedef struct s_object
 {
-	int			id;
-	int			type;
-	t_vector	point;
-	t_vector	norm;
-	float		diameter;
-	float		height;
-	int			color;
-	float		brightness;
+	int				id;
+	int				type;
+	t_vector		point;
+	t_vector		norm;
+	float			diameter;
+	float			height;
+	int				color;
+	float			brightness;
 	struct s_data	*data;
 }	t_object;
 

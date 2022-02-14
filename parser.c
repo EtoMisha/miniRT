@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:10 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/14 11:58:53 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:14:27 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	clear_arr_line(char **arr, char *line)
 	}
 	free(arr);
 	free(line);
-
 }
 
 static void	format_line(char *line)

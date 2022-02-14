@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 21:14:38 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 20:38:32 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/14 13:42:00 by fbeatris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,6 @@ void	remake_image(t_data *data)
 		&data->img->bpp, &data->img->line_len, &data->img->endian);
 	draw_loop(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->ptr, 0, 0);
-}
-
-t_vector	rotate_z(t_vector dir, float a)
-{
-	float	n_x;
-	float	n_y;
-
-	n_x = dir.x * cos(a) - dir.y * sin(a);
-	n_y = dir.x * sin(a) + dir.y * cos(a);
-	dir = v_norm(vector(n_x, n_y, dir.z));
-	return (dir);
-}
-
-t_vector	rotate_y(t_vector dir, float a)
-{
-	float	n_x;
-	float	n_z;
-
-	n_x = dir.x * cos(a) - dir.z * sin(a);
-	n_z = dir.x * sin(a) + dir.z * cos(a);
-	dir = v_norm(vector(n_x, dir.y, n_z));
-	return (dir);
 }
 
 void	rotate_camera(int key_code, t_data *data)
@@ -70,7 +48,6 @@ void	rotate_camera(int key_code, t_data *data)
 
 void	move_camera(int key_code, t_data *data)
 {
-
 	if (key_code == 126)
 		data->camera->point = v_sum(data->camera->point, \
 			v_muls(data->camera->dir, MOVE_STEP));
@@ -83,18 +60,6 @@ void	move_camera(int key_code, t_data *data)
 	else if (key_code == 124)
 		data->camera->point = v_sub(data->camera->point, \
 			v_muls(v_mulv(data->camera->dir, vector(0, 0, 1)), MOVE_STEP));
-}
-
-t_vector	rotate_vector(t_vector vect, float alpha)
-{
-	float	new_y;
-	float	new_z;
-
-	new_y = vect.y * cos(alpha) + vect.z * sin(alpha);
-	new_z = - vect.y * sin(alpha) + vect.z * cos(alpha);
-	vect = v_norm(vector(vect.x, new_y, new_z));
-
-	return (vect);
 }
 
 int	key_hook2(int key, t_object *obj)
@@ -112,10 +77,10 @@ int	key_hook2(int key, t_object *obj)
 		obj->diameter -= 10;
 	}
 	if (key == 85 && (obj->type == 1 || obj->type == 2))
-		obj->norm = rotate_vector(obj->norm, 0.3);
+		obj->norm = rotate_vector(obj->norm, M_PI / 12);
 	if (key == 92 && (obj->type == 1 || obj->type == 2))
-		obj->norm = rotate_vector(obj->norm, -0.3);
-	return 0;
+		obj->norm = rotate_vector(obj->norm, -M_PI / 12);
+	return (0);
 }
 
 int	key_hook(int key_code, t_object *obj)
@@ -131,7 +96,6 @@ int	key_hook(int key_code, t_object *obj)
 		move_camera(key_code, obj->data);
 	else if ((key_code >= 0 && key_code <= 2) || key_code == 13)
 		rotate_camera(key_code, obj->data);
-
 	if (key_code == 91)
 		obj->point.x += 15;
 	if (key_code == 84)
@@ -147,4 +111,3 @@ int	key_hook(int key_code, t_object *obj)
 	remake_image(obj->data);
 	return (1);
 }
-
