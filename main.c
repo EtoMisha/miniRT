@@ -6,7 +6,7 @@
 /*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:10:05 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/14 15:14:15 by ogarthar         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:26:16 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ int	main(int argc, char **argv)
 	t_data		data;
 	t_img		img;
 
-	print_usage();
+
 	if (argc == 2)
 	{
 		default_values(&data, &img);
 		parser(argv[1], &data);
 		if (!data.ambient || !data.camera || !data.light)
-			exit_error("Corrupted file\n");
+			exit_error("Corrupted file");
+		print_usage();
 		make_window(&img, &data);
 	}
 }

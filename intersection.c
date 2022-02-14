@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 20:40:15 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/13 04:11:41 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:23:27 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,34 +60,6 @@ float	inter_plane(t_vector camera, t_vector dir, t_object *plane)
 		/ v_scal(dir, plane->norm);
 	return (t);
 }
-
-/*
-float	inter_cylinder(t_vector ro, t_vector rd, t_object *cyl)
-{
-	float	ra = cyl->diameter / 2;
-	t_vector pa = cyl->point;
-	t_vector pb = v_sum(cyl->point, v_muls(cyl->norm, cyl->height)); 
-	t_vector ca = v_sub(pb,pa);
-    t_vector oc = v_sub(ro,pa);
-    float caca = v_scal(ca,ca);
-    float card = v_scal(ca,rd);
-    float caoc = v_scal(ca,oc);
-    float a = caca - card*card;
-    float b = caca*v_scal( oc, rd) - caoc*card;
-    float c = caca*v_scal( oc, oc) - caoc*caoc - ra*ra*caca;
-    float h = b*b - a*c;
-    if( h<0.0 ) return (0); //no intersection
-    h = sqrt(h);
-    float t = (-b-h)/a;
-    // body
-    float y = caoc + t*card;
-    if( y>0.0 && y<caca ) return ( t);
-    // caps
-    t = (((y<0.0)?0.0:caca) - caoc)/card;
-    if( fabs(b+a*t)<h ) return ( t);
-    return (0); //no intersection
-}
-*/
 
 float	calc_t(float caoc, float card, float caca, float y)
 {

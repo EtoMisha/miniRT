@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 19:07:28 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/14 14:00:33 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:23:51 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,6 @@ int	intersection(t_object **objects, t_vector direction, t_data *data)
 		i++;
 	}
 	return (color);
-}
-
-t_vector	rotate_dir(t_vector dir, t_data *data)
-{
-	float	n_x;
-	float	n_y;
-	float	n_z;
-	float	a;
-
-	a = data->camera->angle_y;
-	n_x = dir.x * cos(a) - dir.z * sin(a);
-	n_z = dir.x * sin(a) + dir.z * cos(a);
-	dir = v_norm(vector(n_x, dir.y, n_z));
-	a = data->camera->angle_z;
-	n_x = dir.x * cos(a) - dir.y * sin(a);
-	n_y = dir.x * sin(a) + dir.y * cos(a);
-	dir = v_norm(vector(n_x, n_y, dir.z));
-	return (dir);
 }
 
 t_vector	find_dir(float dst, float x, float y, t_vector norm)

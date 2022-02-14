@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbeatris <fbeatris@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ogarthar <ogarthar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:09:56 by fbeatris          #+#    #+#             */
-/*   Updated: 2022/02/14 14:21:57 by fbeatris         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:24:26 by ogarthar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ int			mouse_handler(int button, int x, int y, void *data);
 t_vector	rotate_dir(t_vector dir, t_data *data);
 void		remake_image(t_data *data);
 t_vector	find_dir(float dst, float x, float y, t_vector norm);
+t_vector	rotate_dir(t_vector dir, t_data *data);
 
 #endif
